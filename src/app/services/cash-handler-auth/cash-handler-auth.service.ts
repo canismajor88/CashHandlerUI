@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {map} from "rxjs/operators";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CashHandlerAuthService {
-  authURl="https://localhost:5001"
+  authURl= environment.apiUrl;
   constructor(private httpClient:HttpClient) { }
 
   public login(userCred:any){

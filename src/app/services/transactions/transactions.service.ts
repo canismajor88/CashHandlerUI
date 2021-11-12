@@ -3,13 +3,14 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {catchError, map} from "rxjs/operators";
 import {Observable, throwError} from "rxjs";
 import {Transaction} from "../../models/transaction/transaction.model";
+import { environment } from "../../../environments/environment";
 
 
 const httpOptions = {headers: new HttpHeaders()
   .set('Content-Type', 'application/json')
   .set('Authorization', "bearer " + localStorage.getItem('token'))};
 
-const apiUrl = "https://localhost:5001";
+const apiUrl = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'
