@@ -1,28 +1,38 @@
 import { Component, OnInit } from '@angular/core';
-import {MoneyAmount} from "../../../models/moneyAmount/money-amount.model";
-import {Router} from "@angular/router";
-import { NgForm } from "@angular/forms";
-import {MoneyAmountService} from "../../../services/money-amount/money-amount.service";
+import { MoneyAmount } from "../../../models/moneyAmount/money-amount.model";
+import { Router } from "@angular/router";
+import { FormGroup, FormControl } from "@angular/forms";
+import { MoneyAmountService } from "../../../services/money-amount/money-amount.service";
+import { Validators } from '@angular/forms';
+
+
 @Component({
   selector: 'app-rebalance',
   templateUrl: './rebalance.component.html',
   styleUrls: ['./rebalance.component.css']
 })
+
+
 export class RebalanceComponent implements OnInit {
-  hundreds = "0"
-  fifties = "0"
-  twenties = "0"
-  tens = "0"
-  fives = "0"
-  ones = "0"
-  dollarCoins = "0"
-  halfDollars = "0"
-  quarters = "0"
-  dimes = "0"
-  nickles = "0"
-  pennies = "0"
-  total="0"
+
   moneyAmounts: any
+  dropForm = new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]);
+
+  balanceForm = new FormGroup({
+    hundreds: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
+    fifties: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
+    twenties: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
+    tens: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
+    fives: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
+    ones: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
+    dollarCoins: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
+    halfDollars: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
+    quarters: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
+    dimes: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
+    nickels: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
+    pennies: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
+  });
+
   takeOutString: string | null =null
   constructor(private router: Router, private moneyAmountService:MoneyAmountService) {
   }
@@ -30,51 +40,61 @@ export class RebalanceComponent implements OnInit {
   ngOnInit(): void {
     let token = localStorage.getItem('token')
     if (token == "" || token == null) this.router.navigate(['/login']);
-    if (localStorage.getItem('moneyAmount') != null)
-      this.populateMoneyAmounts()
-  }
-
-  populateMoneyAmounts() {
-    let moneyAmountStr: string | null = localStorage.getItem("moneyAmount");
-    if (moneyAmountStr) {
-      this.moneyAmounts = JSON.parse(moneyAmountStr) as MoneyAmount;
+    if (localStorage.getItem('moneyAmount') != null)  {
+      let moneyAmountStr: string | null = localStorage.getItem("moneyAmount");
+      if (moneyAmountStr) {
+        this.moneyAmounts = JSON.parse(moneyAmountStr) as MoneyAmount;
+        this.balanceForm.setValue({
+          ['hundreds']: this.moneyAmounts.HundredsAmount,
+          ['fifties']: this.moneyAmounts.FiftiesAmount,
+          ['twenties']: this.moneyAmounts.TwentiesAmount,
+          ['tens']: this.moneyAmounts.TensAmount,
+          ['fives']: this.moneyAmounts.FivesAmount,
+          ['ones']: this.moneyAmounts.OnesAmount,
+          ['dollarCoins']: this.moneyAmounts.DollarCoinAmount,
+          ['halfDollars']: this.moneyAmounts.FiftiesAmount,
+          ['quarters']: this.moneyAmounts.QuartersAmount,
+          ['dimes']: this.moneyAmounts.DimesAmount,
+          ['nickels']: this.moneyAmounts.NicklesAmount,
+          ['pennies']: this.moneyAmounts.PenniesAmount,
+        });
+      }
     }
-    this.hundreds = this.moneyAmounts.HundredsAmount;
-    this.fifties = this.moneyAmounts.FiftiesAmount;
-    this.twenties = this.moneyAmounts.TwentiesAmount;
-    this.tens = this.moneyAmounts.TensAmount;
-    this.fives = this.moneyAmounts.FivesAmount;
-    this.ones = this.moneyAmounts.OnesAmount;
-    this.dollarCoins = this.moneyAmounts.DollarCoinAmount;
-    this.halfDollars = this.moneyAmounts.HalfDollarAmount;
-    this.quarters = this.moneyAmounts.QuartersAmount;
-    this.dimes = this.moneyAmounts.DimesAmount
-    this.nickles = this.moneyAmounts.NicklesAmount;
-    this.pennies = this.moneyAmounts.PenniesAmount;
-    this.total=this.moneyAmounts.TotalAmount;
-
   }
 
-  updateMoneyAmounts(f: NgForm) {
-    console.log(f.value)
-  this.moneyAmountService.updateMoneyAmount(f.value).subscribe(()=>{
+  updateMoneyAmounts() {
+    console.log(this.balanceForm.value);
+  this.moneyAmountService.updateMoneyAmount(this.balanceForm.value).subscribe(()=>{
   this.populateMoneyAmounts()
   },error => {console.log(error)})
   }
 
-  ReBalanceMoneyAmounts(f: NgForm) {
-  this.moneyAmountService.ReBalanceMoneyAmount(f.value).subscribe(()=>{
-    this.takeOutString=localStorage.getItem('TakeOutString')
-    this.moneyAmountService.getMoneyAmount().subscribe(()=>
-    this.populateMoneyAmounts()
-    )
-  },()=>{
-    this.takeOutString=null
-  })
-
+  ReBalanceMoneyAmounts() {
+    this.moneyAmountService.ReBalanceMoneyAmount(new MoneyAmount(
+      dollarCoinAmount: 0;
+      halfDollarAmount: number;
+      quartersAmount: number;
+      dimesAmount: number;
+      nickelsAmount: number;
+      penniesAmount: number;
+      hundredsAmount: number;
+      fiftiesAmount: number;
+      twentiesAmount: number;
+      tensAmount: number;
+      fivesAmount: number;
+      onesAmount: number;
+      totalAmount: number;
+    )).subscribe(()=>{
+      this.takeOutString=localStorage.getItem('TakeOutString')
+      this.moneyAmountService.getMoneyAmount().subscribe(()=>
+      this.populateMoneyAmounts())},
+      ()=>{
+        this.takeOutString=null
+      })
   }
 
-  reLoadpage() {
+  clearForm() {
     window.location.reload();
+    this.balanceForm.reset(0);
   }
 }
