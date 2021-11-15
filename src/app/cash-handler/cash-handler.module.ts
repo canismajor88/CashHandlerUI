@@ -10,6 +10,9 @@ import { MoneyAmountsDisplayComponent } from './components/money-amounts-display
 import { TransactionTableComponent } from './components/transaction-table/transaction-table.component';
 import { RunTransactionFormComponent } from './components/run-transaction-form/run-transaction-form.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { CurrencyMaskModule } from "ng2-currency-mask";
 
 
 @NgModule({
@@ -23,12 +26,15 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     TransactionTableComponent,
     RunTransactionFormComponent,
   ],
-  imports: [
-    CommonModule,
-    CashHandlerRoutingModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+      CommonModule,
+      CashHandlerRoutingModule,
+      FormsModule,
+      ReactiveFormsModule,
+      MatFormFieldModule,
+      MatInputModule,
+      CurrencyMaskModule,
+    ],
   exports: [
   ]
 })

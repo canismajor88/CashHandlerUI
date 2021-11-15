@@ -12,6 +12,8 @@ import { TransactionsService } from "../../../services/transactions/transactions
 
 
 export class RunTransactionFormComponent implements OnInit {
+
+  giveBack: string | null ="error has occurred";
   hasSubmitted=false;
   transactionSuccess=false;
   transactionError=false;
@@ -33,7 +35,6 @@ export class RunTransactionFormComponent implements OnInit {
     description: "",
   };
 
-  giveBack: string | null ="error has occurred";
   constructor(private transService :TransactionsService) {
   }
 

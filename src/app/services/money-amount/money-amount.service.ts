@@ -31,7 +31,7 @@ export class MoneyAmountService {
       }))
   }
 
-  updateMoneyAmount(data: MoneyAmount): Observable<any> {
+  updateMoneyAmount(data: any): Observable<any> {
     const url = `${apiUrl}/update-moneyAmount`;
     return this.http.post(url, data, httpOptions)
       .pipe(
@@ -43,8 +43,9 @@ export class MoneyAmountService {
         }))
   }
 
-  ReBalanceMoneyAmount(data: MoneyAmount): Observable<any> {
+  ReBalanceMoneyAmount(data: any): Observable<any> {
     const url = `${apiUrl}/reBalance-moneyAmount`;
+    console.log(data);
     return this.http.post(url, data, httpOptions)
       .pipe(
         map((response:any)=>{

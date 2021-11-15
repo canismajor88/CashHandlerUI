@@ -1,188 +1,189 @@
+<app-internal-nav></app-internal-nav>
 <div class="container m-26-p-15 mt-5">
   <div class="row">
-      <div class="mb-3">
+    <div class="mb-3 card-group">
 
 
-        <form class="container card">
+      <form class="container card">
+
+        <div class="row card-header">
+          <div class="col-12">
+            <h3>Cash Drop</h3>
+            <h5>Enter the target balance and submit to confirm a cash drop</h5>
+          </div>
+        </div>
+
+        <div class="card-body">
 
           <div class="row">
+            <div class="col-sm-6">
+              <label for="dropForm" class="form-label">Current Balance</label>
+            </div>
+            <div class="col-sm-6 display-currency" id="currency-align">{{getCurrentBalance()}}</div>
+          </div>
+
+          <mat-form-field class="row">
             <div class="col-12">
-              <h3>Cash Drop</h3>
-              <h5>Enter the target balance</h5>
+              <mat-label for="dropForm" class="form-label">Target Balance</mat-label>
+              <input matInput currencyMask id="dropForm" class="form-control" [formControl]="dropForm">
             </div>
+          </mat-form-field>
+
+          <div class="row card" *ngIf="isDropped">
+            <div class="col-sm-12 card-body">{{getDropHint()}}</div>
           </div>
 
-          <div class="row first-row">
-            <div class="col-sm-4">
-              <label for="dropForm" class="form-label">Target Balance</label>
-            </div>
-            <div class="col-sm-4">
-              <input type="number" id="dropForm" class="form-control" [formControl]="dropForm">
-            </div>
-            <div class="col-sm-4">
-              <button class="btn btn-primary" (click)="dropCash()">
-                <i class="bi bi-cash-stack"></i>Drop {{getDifference()}}
-              </button>
-            </div>
-<!--            <div class="col-sm-4 display-currency">{{balanceForm.value.hundreds}}</div>-->
+        </div>
+
+        <div class="row card-footer">
+          <div class="col-sm-12">
+            <button class="btn btn-primary happy-sm-btn" (click)="dropCash()"
+                    [disabled]="dropForm.invalid || !dropForm.touched || !isValidDrop() ">
+              <i class="bi bi-cash-stack"></i> Drop {{getDifference()}}
+            </button>
           </div>
+        </div>
+
+      </form>
+
+
+      <form class="container card" [formGroup]="balanceForm">
+
+        <div class="row card-header">
+          <div class="col-12">
+            <h3>Balance Wallet</h3>
+            <h5>Enter the count of each denomination to update your current wallet balance</h5>
+          </div>
+        </div>
+
+        <div class="card-body">
 
           <div class="row">
-            <div class="col-sm-4">
-              <label for="description" class="form-label" >Description</label>
-            </div>
-            <div class="col-sm-8">
-              <input type="text" id="description" class="form-control" name="description"
-                     required [(ngModel)]="transaction.description"
-                     placeholder="ID / Type / General Info">
-            </div>
-          </div>
-
-        </form>
-
-
-        <div class="container card">
-
-          <div class="row">
-            <div class="col-12">
-              <h3>Balance Wallet</h3>
-              <h5>Enter the count of each denomination</h5>
-            </div>
-          </div>
-
-          <div class="row first-row">
             <div class="col-sm-4">
               <label for="hundreds" class="form-label">Hundreds</label>
             </div>
             <div class="col-sm-4">
               <input type="number" id="hundreds" class="form-control" formControlName="hundreds">
             </div>
-            <div class="col-sm-4 display-currency">{{balanceForm.value.hundreds}}</div>
+            <div class="col-sm-4 display-currency">{{getHundredsValue()}}</div>
           </div>
 
-        </div>
-
           <div class="row">
-            <div class="col-4">
-              <label for="FiftiesAmount" class="form-label">Fifties</label>
+            <div class="col-sm-4">
+              <label for="fifties" class="form-label">Fifties</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="FiftiesAmount" class="form-control" name="FiftiesAmount"
-                     required pattern="\s*\d*" [(ngModel)]="transaction.fiftiesAmount">
+              <input type="number" id="fifties" class="form-control" formControlName="fifties">
             </div>
             <div class="col-sm-4 display-currency">{{getFiftiesValue()}}</div>
           </div>
 
           <div class="row">
             <div class="col-sm-4">
-              <label for="TwentiesAmount" class="form-label">Twenties</label>
+              <label for="twenties" class="form-label">Twenties</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="TwentiesAmount" class="form-control" name="TwentiesAmount"
-                     required pattern="\s*\d*" [(ngModel)]="transaction.twentiesAmount">
+              <input type="number" id="twenties" class="form-control" formControlName="twenties">
             </div>
             <div class="col-sm-4 display-currency">{{getTwentiesValue()}}</div>
           </div>
 
           <div class="row">
             <div class="col-sm-4">
-              <label for="TensAmount" class="form-label">Tens</label>
+              <label for="tens" class="form-label">Tens</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="TensAmount" class="form-control" name="TensAmount"
-                     required pattern="\s*\d*" [(ngModel)]="transaction.tensAmount">
+              <input type="number" id="tens" class="form-control" formControlName="tens">
             </div>
             <div class="col-sm-4 display-currency">{{getTensValue()}}</div>
           </div>
 
           <div class="row">
             <div class="col-sm-4">
-              <label for="FivesAmount" class="form-label">Fives</label>
+              <label for="fives" class="form-label">Fives</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="FivesAmount" class="form-control" name="FivesAmount"
-                     required pattern="\s*\d*" [(ngModel)]="transaction.fivesAmount">
+              <input type="number" id="fives" class="form-control" formControlName="fives">
             </div>
             <div class="col-sm-4 display-currency">{{getFivesValue()}}</div>
           </div>
 
           <div class="row">
             <div class="col-sm-4">
-              <label for="OnesAmount" class="form-label">Ones</label>
+              <label for="ones" class="form-label">Ones</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="OnesAmount" class="form-control" name="OnesAmount"
-                     required pattern="\s*\d*" [(ngModel)]="transaction.onesAmount">
-            </div>
-            <div class="col-sm-4 display-currency">{{getOnesValue()}}</div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-4">
-              <label for="DollarCoinAmount" class="form-label" >Dollar Coins</label>
-            </div>
-            <div class="col-sm-4">
-              <input type="number" id="DollarCoinAmount" class="form-control" name="DollarCoinAmount"
-                     required pattern="\s*\d*" [(ngModel)]="transaction.dollarCoinAmount">
+              <input type="number" id="ones" class="form-control" formControlName="ones">
             </div>
             <div class="col-sm-4 display-currency">{{getOnesValue()}}</div>
           </div>
 
           <div class="row">
             <div class="col-sm-4">
-              <label for="HalfDollarAmount" class="form-label" >Half Dollars</label>
+              <label for="dollarCoins" class="form-label" >Dollar Coins</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="HalfDollarAmount" class="form-control" name="HalfDollarAmount"
-                     required pattern="\s*\d*" [(ngModel)]="transaction.halfDollarsAmount">
+              <input type="number" id="dollarCoins" class="form-control" formControlName="dollarCoins">
+            </div>
+            <div class="col-sm-4 display-currency">{{getOnesValue()}}</div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-4">
+              <label for="halfDollars" class="form-label" >Half Dollars</label>
+            </div>
+            <div class="col-sm-4">
+              <input type="number" id="halfDollars" class="form-control" formControlName="halfDollars">
             </div>
             <div class="col-sm-4 display-currency">{{getHalfDollarsValue()}}</div>
           </div>
 
           <div class="row">
             <div class="col-sm-4">
-              <label for="QuartersAmount" class="form-label">Quarters</label>
+              <label for="quarters" class="form-label">Quarters</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="QuartersAmount" class="form-control" name="QuartersAmount"
-                     required pattern="\s*\d*" [(ngModel)]="transaction.quartersAmount">
+              <input type="number" id="quarters" class="form-control" formControlName="quarters">
             </div>
             <div class="col-sm-4 display-currency">{{getQuartersValue()}}</div>
           </div>
 
           <div class="row">
             <div class="col-sm-4">
-              <label for="DimesAmount" class="form-label">Dimes</label>
+              <label for="dimes" class="form-label">Dimes</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="DimesAmount" class="form-control" name="DimesAmount"
-                     required pattern="\s*\d*" [(ngModel)]="transaction.dimesAmount">
+              <input type="number" id="dimes" class="form-control" formControlName="dimes">
             </div>
             <div class="col-sm-4 display-currency">{{getDimesValue()}}</div>
           </div>
 
           <div class="row">
             <div class="col-sm-4">
-              <label for="NicklesAmount" class="form-label">Nickels</label>
+              <label for="nickels" class="form-label">Nickels</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="NicklesAmount" class="form-control" name="NicklesAmount"
-                     required pattern="\s*\d*" [(ngModel)]="transaction.nickelsAmount">
+              <input type="number" id="nickels" class="form-control" formControlName="nickels">
             </div>
             <div class="col-sm-4 display-currency">{{getNickelsValue()}}</div>
           </div>
 
           <div class="row">
             <div class="col-sm-4">
-              <label for="PenniesAmount" class="form-label">Pennies</label>
+              <label for="pennies" class="form-label">Pennies</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="PenniesAmount" class="form-control" name="PenniesAmount"
-                     required pattern="\s*\d*" [(ngModel)]="transaction.penniesAmount">
+              <input type="number" id="pennies" class="form-control" formControlName="pennies">
             </div>
             <div class="col-sm-4 display-currency">{{getPenniesValue()}}</div>
           </div>
-          <div class="row">
+
+          <div class="row card-body">
+            <div class="col-sm-6"></div>
+            <div class="col-sm-6 display-currency" id="total-amount">Total: {{getFormTotal()}}</div>
+          </div>
+
+          <div class="row" *ngIf="hasSubmitted || transactionSuccess || transactionError">
             <div class="col-md-6 offset-md-3 mt-4">
               <td class="alert alert-primary" *ngIf="hasSubmitted" role="alert">Loading</td>
             </div>
@@ -195,18 +196,29 @@
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-12">
-              <button type="submit" [disabled]="f.invalid" class="btn btn-primary" id="submit-btn">
-                Run Transaction <i class="bi bi-cash-coin"></i>
-              </button>
-            </div>
+
+        </div>
+
+        <div class="row card-footer">
+
+          <div class="col-6">
+            <button type="submit" [disabled]="balanceForm.invalid || !balanceForm.touched"
+                    class="btn btn-primary happy-btn" (click)="updateBalance()" >
+              Balance <i class="bi bi-cash-stack"></i>
+            </button>
+          </div>
+
+          <div class="col-6">
+            <button type="submit" [disabled]="!balanceForm.touched" class="btn btn-secondary happy-btn">
+              Reset Form <i class="bi bi-arrow-clockwise"></i>
+            </button>
           </div>
 
         </div>
 
-      </div>
+      </form>
 
-    </form>
+
+    </div>
   </div>
 </div>

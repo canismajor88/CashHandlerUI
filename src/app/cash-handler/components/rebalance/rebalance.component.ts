@@ -15,22 +15,28 @@ import { Validators } from '@angular/forms';
 
 export class RebalanceComponent implements OnInit {
 
-  moneyAmounts: any
-  dropForm = new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]);
+  giveBack: string | null ="error has occurred";
+  hasSubmitted=false;
+  transactionSuccess=false;
+  transactionError=false;
+  isDropped=false;
+  moneyAmounts: any;
+
+  dropForm = new FormControl(0, [Validators.required]);
 
   balanceForm = new FormGroup({
-    hundreds: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
-    fifties: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
-    twenties: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
-    tens: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
-    fives: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
-    ones: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
-    dollarCoins: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
-    halfDollars: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
-    quarters: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
-    dimes: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
-    nickels: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
-    pennies: new FormControl(0, [Validators.required, Validators.pattern("\s*\d*")]),
+    hundreds: new FormControl(0, [Validators.required]),
+    fifties: new FormControl(0, [Validators.required]),
+    twenties: new FormControl(0, [Validators.required]),
+    tens: new FormControl(0, [Validators.required]),
+    fives: new FormControl(0, [Validators.required]),
+    ones: new FormControl(0, [Validators.required]),
+    dollarCoins: new FormControl(0, [Validators.required]),
+    halfDollars: new FormControl(0, [Validators.required]),
+    quarters: new FormControl(0, [Validators.required]),
+    dimes: new FormControl(0, [Validators.required]),
+    nickels: new FormControl(0, [Validators.required]),
+    pennies: new FormControl(0, [Validators.required]),
   });
 
   takeOutString: string | null =null
@@ -40,6 +46,11 @@ export class RebalanceComponent implements OnInit {
   ngOnInit(): void {
     let token = localStorage.getItem('token')
     if (token == "" || token == null) this.router.navigate(['/login']);
+    this.setFormValues();
+  }
+
+  setFormValues() {
+    this.moneyAmountService.getMoneyAmount().subscribe( result => {console.log(result);});
     if (localStorage.getItem('moneyAmount') != null)  {
       let moneyAmountStr: string | null = localStorage.getItem("moneyAmount");
       if (moneyAmountStr) {
@@ -62,39 +73,112 @@ export class RebalanceComponent implements OnInit {
     }
   }
 
-  updateMoneyAmounts() {
-    console.log(this.balanceForm.value);
-  this.moneyAmountService.updateMoneyAmount(this.balanceForm.value).subscribe(()=>{
-  this.populateMoneyAmounts()
-  },error => {console.log(error)})
+  getFormTotal() {
+    return this.convertToCurrency(this.balanceForm.value.hundreds * 100
+      + this.balanceForm.value.fifties * 50
+      + this.balanceForm.value.twenties * 20
+      + this.balanceForm.value.tens * 10
+      + this.balanceForm.value.fives * 5
+      + this.balanceForm.value.ones
+      + this.balanceForm.value.dollarCoins
+      + this.balanceForm.value.halfDollars * 0.5
+      + this.balanceForm.value.quarters * 0.25
+      + this.balanceForm.value.dimes * 0.10
+      + this.balanceForm.value.nickels * 0.05
+      + this.balanceForm.value.pennies * 0.01);
   }
 
-  ReBalanceMoneyAmounts() {
-    this.moneyAmountService.ReBalanceMoneyAmount(new MoneyAmount(
-      dollarCoinAmount: 0;
-      halfDollarAmount: number;
-      quartersAmount: number;
-      dimesAmount: number;
-      nickelsAmount: number;
-      penniesAmount: number;
-      hundredsAmount: number;
-      fiftiesAmount: number;
-      twentiesAmount: number;
-      tensAmount: number;
-      fivesAmount: number;
-      onesAmount: number;
-      totalAmount: number;
-    )).subscribe(()=>{
-      this.takeOutString=localStorage.getItem('TakeOutString')
+  getCurrentBalance() {
+    return this.convertToCurrency(this.moneyAmounts.TotalAmount);
+  }
+
+  convertToCurrency(amount: number) {
+    return amount.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 2,
+    });
+  }
+
+  getHundredsValue() {
+    return this.convertToCurrency(this.balanceForm.value.hundreds * 100);
+  }
+
+  getFiftiesValue() {
+    return this.convertToCurrency(this.balanceForm.value.fifties * 50);
+  }
+  getTwentiesValue() {
+    return this.convertToCurrency(this.balanceForm.value.twenties * 20);
+  }
+  getTensValue() {
+    return this.convertToCurrency(this.balanceForm.value.tens * 10);
+  }
+  getFivesValue() {
+    return this.convertToCurrency(this.balanceForm.value.fives * 5);
+  }
+  getOnesValue() {
+    return this.convertToCurrency(this.balanceForm.value.ones * 1);
+  }
+  getHalfDollarsValue() {
+    return this.convertToCurrency(this.balanceForm.value.halfDollars * 0.5);
+  }
+  getQuartersValue() {
+    return this.convertToCurrency(this.balanceForm.value.quarters * 0.25);
+  }
+  getDimesValue() {
+    return this.convertToCurrency(this.balanceForm.value.dimes * 0.10);
+  }
+  getNickelsValue() {
+    return this.convertToCurrency(this.balanceForm.value.nickels * 0.05);
+  }
+  getPenniesValue() {
+    return this.convertToCurrency(this.balanceForm.value.pennies * 0.01);
+  }
+
+  getDifference() {
+    return this.convertToCurrency(this.moneyAmounts.TotalAmount - this.dropForm.value);
+  }
+
+  isValidDrop() {
+    if (this.moneyAmounts.TotalAmount - this.dropForm.value > 0) { return true;}
+    return false;
+  }
+
+  dropCash() {
+    this.moneyAmountService.ReBalanceMoneyAmount({TargetAmount: this.dropForm.value}).subscribe(result => {
+      console.log(localStorage.getItem('TakeOutString'));
+    }, error => console.log(error));
+    this.setFormValues();
+    this.isDropped=true;
+    this.dropForm.reset();
+    this.dropForm.setValue(0);
+  }
+
+  getDropHint() {
+    return localStorage.getItem('TakeOutString');
+  }
+
+  updateBalance() {
+    console.log("Called function rebalanceMoneyAmounts()");
+    this.moneyAmountService.ReBalanceMoneyAmount({
+      HundredsAmount: this.balanceForm.value.hundreds * 100,
+      FiftiesAmount: this.balanceForm.value.fifties * 50,
+      TwentiesAmount: this.balanceForm.value.twenties * 20,
+      TensAmount: this.balanceForm.value.tens * 10,
+      FivesAmount: this.balanceForm.value.fives * 5,
+      OnesAmount: this.balanceForm.value.ones,
+      DollarCoinAmount: this.balanceForm.value.dollarCoins,
+      HalfDollarAmount: this.balanceForm.value.halfDollars * 0.5,
+      QuartersAmount: this.balanceForm.value.quarters * 0.25,
+      DimesAmount: this.balanceForm.value.dimes * 0.10,
+      NicklesAmount: this.balanceForm.value.nickels * 0.05,
+      PenniesAmount: this.balanceForm.value.pennies * 0.01,
+      }
+    ).subscribe(()=>{
       this.moneyAmountService.getMoneyAmount().subscribe(()=>
-      this.populateMoneyAmounts())},
+        this.setFormValues())},
       ()=>{
         this.takeOutString=null
-      })
-  }
-
-  clearForm() {
-    window.location.reload();
-    this.balanceForm.reset(0);
+    })
   }
 }
