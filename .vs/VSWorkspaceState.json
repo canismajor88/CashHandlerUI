@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\cash-handler",
+    "\\src\\app\\cash-handler\\components",
+    "\\src\\app\\cash-handler\\components\\internal-nav",
+    "\\src\\app\\cash-handler\\components\\money-amounts-display",
+    "\\src\\app\\cash-handler\\components\\user-profile",
+    "\\src\\assets",
+    "\\src\\assets\\img"
+  ],
+  "SelectedNode": "\\src\\app\\cash-handler\\components\\money-amounts-display\\money-amounts-display.component.css",
+  "PreviewInSolutionExplorer": false
+}
