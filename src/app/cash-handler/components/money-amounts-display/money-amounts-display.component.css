@@ -1,5 +1,5 @@
 .fixed-width {
-    width: 150px;
-    margin: 15px;
+    width: auto;
+    margin: 5px;
     padding: 5px;
 }
