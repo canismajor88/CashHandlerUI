@@ -17,6 +17,7 @@ input {
 
 #total-amount {
   font-size: large;
+  padding-right: 8px;
 }
 
 .display-currency {
@@ -25,11 +26,7 @@ input {
 }
 
 #currency-align {
-  padding-right: 40px;
-}
-
-#target-input {
-
+  padding-right: 25px;
 }
 
 .happy-btn {

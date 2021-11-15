@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {Observable, throwError} from "rxjs";
 import {catchError, map} from "rxjs/operators";
-import {MoneyAmount} from "../../models/moneyAmount/money-amount.model";
 import { environment } from "../../../environments/environment";
 
 const httpOptions = {
@@ -26,6 +25,7 @@ export class MoneyAmountService {
       map((response:any)=> {
         const moneyAmount = response.Result;
         if (moneyAmount.Success) {
+          console.log("check this shit out " + JSON.stringify(moneyAmount.MoneyAmountViewModel));
           localStorage.setItem('moneyAmount', JSON.stringify(moneyAmount.MoneyAmountViewModel));
         }
       }))

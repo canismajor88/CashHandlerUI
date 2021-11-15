@@ -47,6 +47,7 @@ export class RebalanceComponent implements OnInit {
     let token = localStorage.getItem('token')
     if (token == "" || token == null) this.router.navigate(['/login']);
     this.setFormValues();
+    this.isDropped = false;
   }
 
   setFormValues() {
@@ -63,7 +64,7 @@ export class RebalanceComponent implements OnInit {
           ['fives']: this.moneyAmounts.FivesAmount,
           ['ones']: this.moneyAmounts.OnesAmount,
           ['dollarCoins']: this.moneyAmounts.DollarCoinAmount,
-          ['halfDollars']: this.moneyAmounts.FiftiesAmount,
+          ['halfDollars']: this.moneyAmounts.HalfDollarAmount,
           ['quarters']: this.moneyAmounts.QuartersAmount,
           ['dimes']: this.moneyAmounts.DimesAmount,
           ['nickels']: this.moneyAmounts.NicklesAmount,
@@ -74,7 +75,8 @@ export class RebalanceComponent implements OnInit {
   }
 
   getFormTotal() {
-    return this.convertToCurrency(this.balanceForm.value.hundreds * 100
+    return this.convertToCurrency(
+      this.balanceForm.value.hundreds * 100
       + this.balanceForm.value.fifties * 50
       + this.balanceForm.value.twenties * 20
       + this.balanceForm.value.tens * 10
@@ -107,30 +109,43 @@ export class RebalanceComponent implements OnInit {
   getFiftiesValue() {
     return this.convertToCurrency(this.balanceForm.value.fifties * 50);
   }
+
   getTwentiesValue() {
     return this.convertToCurrency(this.balanceForm.value.twenties * 20);
   }
+
   getTensValue() {
     return this.convertToCurrency(this.balanceForm.value.tens * 10);
   }
+
   getFivesValue() {
     return this.convertToCurrency(this.balanceForm.value.fives * 5);
   }
+
   getOnesValue() {
     return this.convertToCurrency(this.balanceForm.value.ones * 1);
   }
+
+  getDollarCoinsValue() {
+    return this.convertToCurrency(this.balanceForm.value.dollarCoins * 1);
+  }
+
   getHalfDollarsValue() {
     return this.convertToCurrency(this.balanceForm.value.halfDollars * 0.5);
   }
+
   getQuartersValue() {
     return this.convertToCurrency(this.balanceForm.value.quarters * 0.25);
   }
+
   getDimesValue() {
     return this.convertToCurrency(this.balanceForm.value.dimes * 0.10);
   }
+
   getNickelsValue() {
     return this.convertToCurrency(this.balanceForm.value.nickels * 0.05);
   }
+
   getPenniesValue() {
     return this.convertToCurrency(this.balanceForm.value.pennies * 0.01);
   }
@@ -152,6 +167,7 @@ export class RebalanceComponent implements OnInit {
     this.isDropped=true;
     this.dropForm.reset();
     this.dropForm.setValue(0);
+    console.log(this.dropForm.value);
   }
 
   getDropHint() {

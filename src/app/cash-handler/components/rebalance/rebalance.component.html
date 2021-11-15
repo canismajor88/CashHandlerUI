@@ -23,14 +23,12 @@
           </div>
 
           <div class="row">
-            <mat-form-field>
-              <div class="col-sm-6">
-                <mat-label for="dropForm" class="form-label">Target Balance</mat-label>
-              </div>
-              <div class="col-sm-6">
-                <input matInput currencyMask id="dropForm" class="form-control" [formControl]="dropForm">
-              </div>
-            </mat-form-field>
+            <div class="col-sm-6">
+              <label for="dropForm" class="form-label">Target Balance</label>
+            </div>
+            <div class="col-sm-6">
+              <input matInput currencyMask id="dropForm" class="form-control" [formControl]="dropForm">
+            </div>
           </div>
           <div class="row card" *ngIf="isDropped">
             <div class="col-sm-12 card-body">{{getDropHint()}}</div>
@@ -128,7 +126,7 @@
             <div class="col-sm-4">
               <input type="number" id="dollarCoins" class="form-control" formControlName="dollarCoins">
             </div>
-            <div class="col-sm-4 display-currency">{{getOnesValue()}}</div>
+            <div class="col-sm-4 display-currency">{{getDollarCoinsValue()}}</div>
           </div>
 
           <div class="row">

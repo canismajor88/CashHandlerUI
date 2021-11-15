@@ -68,6 +68,9 @@ export class RunTransactionFormComponent implements OnInit {
   getOnesValue() {
     return this.convertToCurrency(this.transaction.onesAmount * 1);
   }
+  getDollarCoinsValue() {
+    return this.convertToCurrency(this.transaction.dollarCoinAmount * 1);
+  }
   getHalfDollarsValue() {
     return this.convertToCurrency(this.transaction.halfDollarsAmount * 0.5);
   }
