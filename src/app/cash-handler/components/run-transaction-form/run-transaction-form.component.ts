@@ -12,6 +12,8 @@ import { TransactionsService } from "../../../services/transactions/transactions
 
 
 export class RunTransactionFormComponent implements OnInit {
+
+  giveBack: string | null ="error has occurred";
   hasSubmitted=false;
   transactionSuccess=false;
   transactionError=false;
@@ -33,7 +35,6 @@ export class RunTransactionFormComponent implements OnInit {
     description: "",
   };
 
-  giveBack: string | null ="error has occurred";
   constructor(private transService :TransactionsService) {
   }
 
@@ -66,6 +67,9 @@ export class RunTransactionFormComponent implements OnInit {
   }
   getOnesValue() {
     return this.convertToCurrency(this.transaction.onesAmount * 1);
+  }
+  getDollarCoinsValue() {
+    return this.convertToCurrency(this.transaction.dollarCoinAmount * 1);
   }
   getHalfDollarsValue() {
     return this.convertToCurrency(this.transaction.halfDollarsAmount * 0.5);

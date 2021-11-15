@@ -12,12 +12,12 @@
     </div>
     <div *ngIf="transactionsLoaded&&moneyAmountLoaded" class="col m-25-p-10 rounded-corners">
       <button class="btn btn-primary" type="reset" (click)="reLoadpage()">Refresh Result<i class="bi bi-arrow-clockwise"></i> </button>
-     <app-money-amounts-display></app-money-amounts-display>
+      <app-money-amounts-display></app-money-amounts-display>
       <app-transaction-table></app-transaction-table>
     </div>
   </div>
   <div class="row justify-content-center">
-    <div class="col-sm-1" >
+    <div class="col-sm-2" >
       <img class="centered-cash" src="assets/img/blub.png" height="100" width="100">
     </div>
   </div>

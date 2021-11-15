@@ -7,10 +7,5 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title: any;
-
-  constructor() {
-    this.title = 'CashHandler';
-  }
-
+  title="CashHandler"
 }

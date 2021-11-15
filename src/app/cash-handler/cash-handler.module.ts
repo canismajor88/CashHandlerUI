@@ -9,7 +9,10 @@ import { InternalNavComponent } from './components/internal-nav/internal-nav.com
 import { MoneyAmountsDisplayComponent } from './components/money-amounts-display/money-amounts-display.component';
 import { TransactionTableComponent } from './components/transaction-table/transaction-table.component';
 import { RunTransactionFormComponent } from './components/run-transaction-form/run-transaction-form.component';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { CurrencyMaskModule } from "ng2-currency-mask";
 
 
 @NgModule({
@@ -23,11 +26,15 @@ import { FormsModule } from "@angular/forms";
     TransactionTableComponent,
     RunTransactionFormComponent,
   ],
-  imports: [
-    CommonModule,
-    CashHandlerRoutingModule,
-    FormsModule
-  ],
+    imports: [
+      CommonModule,
+      CashHandlerRoutingModule,
+      FormsModule,
+      ReactiveFormsModule,
+      MatFormFieldModule,
+      MatInputModule,
+      CurrencyMaskModule,
+    ],
   exports: [
   ]
 })

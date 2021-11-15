@@ -1,0 +1,46 @@
+
+.card {
+  width: fit-content;
+  min-width: 400px;
+  margin-top: 3%;
+}
+
+#balance-wallet {
+  width: fit-content;
+  min-width: 400px;
+  margin-top: 3%;
+}
+
+input {
+  text-align: right;
+}
+
+#total-amount {
+  font-size: large;
+  padding-right: 8px;
+}
+
+.display-currency {
+  text-align: right;
+  padding-right: 5%;
+}
+
+#currency-align {
+  padding-right: 25px;
+}
+
+.happy-btn {
+  margin-top: 2%;
+  height: 50px;
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: auto;
+}
+
+.happy-sm-btn {
+  margin-top: 1%;
+  height: 50px;
+  width: 42.5%;
+  margin-left: 28.75%;
+  margin-right: auto;
+}

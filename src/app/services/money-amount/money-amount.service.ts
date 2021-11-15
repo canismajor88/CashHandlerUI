@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {Observable, throwError} from "rxjs";
 import {catchError, map} from "rxjs/operators";
-import {MoneyAmount} from "../../models/moneyAmount/money-amount.model";
 import { environment } from "../../../environments/environment";
 
 const httpOptions = {
@@ -26,25 +25,28 @@ export class MoneyAmountService {
       map((response:any)=> {
         const moneyAmount = response.Result;
         if (moneyAmount.Success) {
+          console.log("check this shit out " + JSON.stringify(moneyAmount.MoneyAmountViewModel));
           localStorage.setItem('moneyAmount', JSON.stringify(moneyAmount.MoneyAmountViewModel));
         }
       }))
   }
 
-  updateMoneyAmount(data: MoneyAmount): Observable<any> {
+  updateMoneyAmount(data: any): Observable<any> {
     const url = `${apiUrl}/update-moneyAmount`;
     return this.http.post(url, data, httpOptions)
       .pipe(
         map((response:any)=>{
           const moneyAmount = response;
           if (moneyAmount.Payload.Success) {
+            console.log(JSON.stringify(moneyAmount.Payload.MoneyAmountViewModel));
             localStorage.setItem('moneyAmount', JSON.stringify(moneyAmount.Payload.MoneyAmountViewModel));
           }
         }))
   }
 
-  ReBalanceMoneyAmount(data: MoneyAmount): Observable<any> {
+  ReBalanceMoneyAmount(data: any): Observable<any> {
     const url = `${apiUrl}/reBalance-moneyAmount`;
+    console.log(data);
     return this.http.post(url, data, httpOptions)
       .pipe(
         map((response:any)=>{
