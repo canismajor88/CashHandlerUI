@@ -159,20 +159,20 @@ export class RebalanceComponent implements OnInit {
   }
 
   updateBalance() {
-    console.log("Called function rebalanceMoneyAmounts()");
-    this.moneyAmountService.ReBalanceMoneyAmount({
-      HundredsAmount: this.balanceForm.value.hundreds * 100,
-      FiftiesAmount: this.balanceForm.value.fifties * 50,
-      TwentiesAmount: this.balanceForm.value.twenties * 20,
-      TensAmount: this.balanceForm.value.tens * 10,
-      FivesAmount: this.balanceForm.value.fives * 5,
+    console.log("Called function updateMoneyAmounts()");
+    this.moneyAmountService.updateMoneyAmount({
+      HundredsAmount: this.balanceForm.value.hundreds,
+      FiftiesAmount: this.balanceForm.value.fifties ,
+      TwentiesAmount: this.balanceForm.value.twenties ,
+      TensAmount: this.balanceForm.value.tens ,
+      FivesAmount: this.balanceForm.value.fives,
       OnesAmount: this.balanceForm.value.ones,
       DollarCoinAmount: this.balanceForm.value.dollarCoins,
-      HalfDollarAmount: this.balanceForm.value.halfDollars * 0.5,
-      QuartersAmount: this.balanceForm.value.quarters * 0.25,
-      DimesAmount: this.balanceForm.value.dimes * 0.10,
-      NicklesAmount: this.balanceForm.value.nickels * 0.05,
-      PenniesAmount: this.balanceForm.value.pennies * 0.01,
+      HalfDollarAmount: this.balanceForm.value.halfDollars ,
+      QuartersAmount: this.balanceForm.value.quarters ,
+      DimesAmount: this.balanceForm.value.dimes ,
+      NicklesAmount: this.balanceForm.value.nickels,
+      PenniesAmount: this.balanceForm.value.pennies,
       }
     ).subscribe(()=>{
       this.moneyAmountService.getMoneyAmount().subscribe(()=>

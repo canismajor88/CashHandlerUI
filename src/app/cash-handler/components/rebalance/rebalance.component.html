@@ -22,13 +22,16 @@
             <div class="col-sm-6 display-currency" id="currency-align">{{getCurrentBalance()}}</div>
           </div>
 
-          <mat-form-field class="row">
-            <div class="col-12">
-              <mat-label for="dropForm" class="form-label">Target Balance</mat-label>
-              <input matInput currencyMask id="dropForm" class="form-control" [formControl]="dropForm">
-            </div>
-          </mat-form-field>
-
+          <div class="row">
+            <mat-form-field>
+              <div class="col-sm-6">
+                <mat-label for="dropForm" class="form-label">Target Balance</mat-label>
+              </div>
+              <div class="col-sm-6">
+                <input matInput currencyMask id="dropForm" class="form-control" [formControl]="dropForm">
+              </div>
+            </mat-form-field>
+          </div>
           <div class="row card" *ngIf="isDropped">
             <div class="col-sm-12 card-body">{{getDropHint()}}</div>
           </div>
