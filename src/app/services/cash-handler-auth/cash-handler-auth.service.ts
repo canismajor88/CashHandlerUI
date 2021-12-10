@@ -8,6 +8,8 @@ import { environment } from "../../../environments/environment";
 })
 export class CashHandlerAuthService {
   authURl= environment.apiUrl;
+  registerUrl=environment.registerEmailUrl
+  resetUrl=environment.resetPasswordURL
   constructor(private httpClient:HttpClient) { }
 
   public login(userCred:any){
@@ -23,7 +25,7 @@ export class CashHandlerAuthService {
   }
   public register(userCred:any){
     let headers=new HttpHeaders({
-      'confirmEmailURL':environment.registerEmailUrl
+      'confirmEmailURL':this.registerUrl
     })
     let options={headers: headers};
     return  this.httpClient.post(this.authURl+"/register",userCred,options).pipe(
@@ -44,7 +46,7 @@ export class CashHandlerAuthService {
 
   public ResetPassword(userCred:any){
     let headers=new HttpHeaders({
-      'resetPasswordURL':environment.resetPasswordURL
+      'resetPasswordURL':this.resetUrl
     })
     let options={headers: headers};
     return  this.httpClient.post(this.authURl+"/reset-password",userCred,options).pipe(
