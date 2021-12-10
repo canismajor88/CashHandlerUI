@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:5001'
+  apiUrl: 'https://localhost:5001',
+  registerEmailUrl:'http://localhost:4200/confirm_email',
+  resetPasswordURL:'http://localhost:4200/change-password'
 };
 
 /*

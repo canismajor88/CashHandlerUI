@@ -23,7 +23,7 @@ export class CashHandlerAuthService {
   }
   public register(userCred:any){
     let headers=new HttpHeaders({
-      'confirmEmailURL':'http://localhost:4200/confirm_email'
+      'confirmEmailURL':environment.registerEmailUrl
     })
     let options={headers: headers};
     return  this.httpClient.post(this.authURl+"/register",userCred,options).pipe(
@@ -44,7 +44,7 @@ export class CashHandlerAuthService {
 
   public ResetPassword(userCred:any){
     let headers=new HttpHeaders({
-      'resetPasswordURL':'http://localhost:4200/change-password'
+      'resetPasswordURL':environment.resetPasswordURL
     })
     let options={headers: headers};
     return  this.httpClient.post(this.authURl+"/reset-password",userCred,options).pipe(
