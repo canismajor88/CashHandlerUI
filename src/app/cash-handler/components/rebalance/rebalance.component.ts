@@ -16,7 +16,8 @@ import { Validators } from '@angular/forms';
 export class RebalanceComponent implements OnInit {
 
   giveBack: string | null ="error has occurred";
-  hasSubmitted=false;
+  hasSubmittedUpdate=false;
+  hasSubmittedReBalance=false;
   transactionSuccess=false;
   transactionError=false;
   isDropped=false;
@@ -51,6 +52,7 @@ export class RebalanceComponent implements OnInit {
   }
 
   setFormValues() {
+    this.hasSubmittedUpdate=false;
     this.moneyAmountService.getMoneyAmount().subscribe( result => {console.log(result);});
     if (localStorage.getItem('moneyAmount') != null)  {
       let moneyAmountStr: string | null = localStorage.getItem("moneyAmount");
@@ -160,6 +162,7 @@ export class RebalanceComponent implements OnInit {
   }
 
   dropCash() {
+    this.hasSubmittedReBalance=true
     this.moneyAmountService.ReBalanceMoneyAmount({TargetAmount: this.dropForm.value}).subscribe(result => {
       console.log(localStorage.getItem('TakeOutString'));
     }, error => console.log(error));
@@ -171,11 +174,17 @@ export class RebalanceComponent implements OnInit {
   }
 
   getDropHint() {
-    return localStorage.getItem('TakeOutString');
+    let takeoutString=localStorage.getItem('TakeOutString');
+    if(takeoutString!=null){
+      this.hasSubmittedReBalance=false
+      return takeoutString.substring(1,takeoutString.length-1);
+    }
+    return ""
   }
 
   updateBalance() {
     console.log("Called function updateMoneyAmounts()");
+    this.hasSubmittedUpdate=true;
     this.moneyAmountService.updateMoneyAmount({
       HundredsAmount: this.balanceForm.value.hundreds,
       FiftiesAmount: this.balanceForm.value.fifties ,
@@ -192,7 +201,9 @@ export class RebalanceComponent implements OnInit {
       }
     ).subscribe(()=>{
       this.moneyAmountService.getMoneyAmount().subscribe(()=>
-        this.setFormValues())},
+        this.setFormValues()
+      )}
+      ,
       ()=>{
         this.takeOutString=null
     })

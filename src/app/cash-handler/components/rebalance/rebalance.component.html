@@ -30,10 +30,16 @@
               <input matInput currencyMask id="dropForm" class="form-control" [formControl]="dropForm">
             </div>
           </div>
+          <div class="row card-body justify-content-center">
+            <div class="col-sm-4 " style="text-align: center">
+              <td class="alert alert-primary" style="width:1000px " *ngIf="hasSubmittedReBalance" role="alert">
+                <span style="color: #42A948; font-size: medium;font-weight: bold">Loading</span>
+              </td>
+            </div>
+          </div>
           <div class="row card" *ngIf="isDropped">
             <div class="col-sm-12 card-body">{{getDropHint()}}</div>
           </div>
-
         </div>
 
         <div class="row card-footer">
@@ -44,8 +50,7 @@
             </button>
           </div>
         </div>
-
-      </form>
+    </form>
 
 
       <form class="container card" [formGroup]="balanceForm">
@@ -184,20 +189,13 @@
             <div class="col-sm-6 display-currency" id="total-amount">Total: {{getFormTotal()}}</div>
           </div>
 
-          <div class="row" *ngIf="hasSubmitted || transactionSuccess || transactionError">
-            <div class="col-md-6 offset-md-3 mt-4">
-              <td class="alert alert-primary" *ngIf="hasSubmitted" role="alert">Loading</td>
-            </div>
-            <div class="col-md-6 offset-md-3 mt-4">
-              <div class="alert alert-primary" *ngIf="transactionSuccess" role="alert">
-                {{giveBack}}
-              </div>
-              <div class="alert alert-warning" *ngIf="transactionError" role="alert">
-                {{giveBack}}
-              </div>
+          <div class="row card-body justify-content-center">
+            <div class="col-sm-4 " style="text-align: center">
+              <td class="alert alert-primary" style="width:1000px " *ngIf="hasSubmittedUpdate" role="alert">
+              <span style="color: #42A948; font-size: medium;font-weight: bold">Loading</span>
+              </td>
             </div>
           </div>
-
         </div>
 
         <div class="row card-footer">
