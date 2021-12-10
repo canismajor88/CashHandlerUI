@@ -69,7 +69,7 @@
               <label for="hundreds" class="form-label">Hundreds</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="hundreds" class="form-control" formControlName="hundreds">
+              <input type="number" id="hundreds" class="form-control" formControlName="hundreds" required pattern="\d*">
             </div>
             <div class="col-sm-4 display-currency">{{getHundredsValue()}}</div>
           </div>
@@ -79,7 +79,7 @@
               <label for="fifties" class="form-label">Fifties</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="fifties" class="form-control" formControlName="fifties">
+              <input type="number" id="fifties" class="form-control" formControlName="fifties" required pattern="\d*">
             </div>
             <div class="col-sm-4 display-currency">{{getFiftiesValue()}}</div>
           </div>
@@ -89,7 +89,7 @@
               <label for="twenties" class="form-label">Twenties</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="twenties" class="form-control" formControlName="twenties">
+              <input type="number" id="twenties" class="form-control" formControlName="twenties" required pattern="\d*">
             </div>
             <div class="col-sm-4 display-currency">{{getTwentiesValue()}}</div>
           </div>
@@ -99,7 +99,7 @@
               <label for="tens" class="form-label">Tens</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="tens" class="form-control" formControlName="tens">
+              <input type="number" id="tens" class="form-control" formControlName="tens" required pattern="\d*">
             </div>
             <div class="col-sm-4 display-currency">{{getTensValue()}}</div>
           </div>
@@ -109,7 +109,7 @@
               <label for="fives" class="form-label">Fives</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="fives" class="form-control" formControlName="fives">
+              <input type="number" id="fives" class="form-control" formControlName="fives" required pattern="\d*">
             </div>
             <div class="col-sm-4 display-currency">{{getFivesValue()}}</div>
           </div>
@@ -119,7 +119,7 @@
               <label for="ones" class="form-label">Ones</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="ones" class="form-control" formControlName="ones">
+              <input type="number" id="ones" class="form-control" formControlName="ones" required pattern="\d*">
             </div>
             <div class="col-sm-4 display-currency">{{getOnesValue()}}</div>
           </div>
@@ -129,7 +129,7 @@
               <label for="dollarCoins" class="form-label" >Dollar Coins</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="dollarCoins" class="form-control" formControlName="dollarCoins">
+              <input type="number" id="dollarCoins" class="form-control" formControlName="dollarCoins" required pattern="\d*">
             </div>
             <div class="col-sm-4 display-currency">{{getDollarCoinsValue()}}</div>
           </div>
@@ -139,7 +139,7 @@
               <label for="halfDollars" class="form-label" >Half Dollars</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="halfDollars" class="form-control" formControlName="halfDollars">
+              <input type="number" id="halfDollars" class="form-control" formControlName="halfDollars"required pattern="\d*">
             </div>
             <div class="col-sm-4 display-currency">{{getHalfDollarsValue()}}</div>
           </div>
@@ -149,7 +149,7 @@
               <label for="quarters" class="form-label">Quarters</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="quarters" class="form-control" formControlName="quarters">
+              <input type="number" id="quarters" class="form-control" formControlName="quarters" required pattern="\d*">
             </div>
             <div class="col-sm-4 display-currency">{{getQuartersValue()}}</div>
           </div>
@@ -159,7 +159,7 @@
               <label for="dimes" class="form-label">Dimes</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="dimes" class="form-control" formControlName="dimes">
+              <input type="number" id="dimes" class="form-control" formControlName="dimes" required pattern="\d*">
             </div>
             <div class="col-sm-4 display-currency">{{getDimesValue()}}</div>
           </div>
@@ -169,7 +169,7 @@
               <label for="nickels" class="form-label">Nickels</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="nickels" class="form-control" formControlName="nickels">
+              <input type="number" id="nickels" class="form-control" formControlName="nickels"  required pattern="\d*">
             </div>
             <div class="col-sm-4 display-currency">{{getNickelsValue()}}</div>
           </div>
@@ -179,7 +179,7 @@
               <label for="pennies" class="form-label">Pennies</label>
             </div>
             <div class="col-sm-4">
-              <input type="number" id="pennies" class="form-control" formControlName="pennies">
+              <input type="number" id="pennies" class="form-control" formControlName="pennies"  required pattern="\d*">
             </div>
             <div class="col-sm-4 display-currency">{{getPenniesValue()}}</div>
           </div>

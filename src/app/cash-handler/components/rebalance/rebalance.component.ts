@@ -181,7 +181,6 @@ export class RebalanceComponent implements OnInit {
     }
     return ""
   }
-
   updateBalance() {
     console.log("Called function updateMoneyAmounts()");
     this.hasSubmittedUpdate=true;
